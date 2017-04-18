@@ -67,7 +67,6 @@ void get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg){
   //to iterate trough all the points in the filtered point cloud published by publisher
   BOOST_FOREACH (const pcl::PointXYZRGB& pt, msg->points){
     double angle = atan2(pt.x, pt.z);
-    cout<<angle<<endl;
     // std::cout<<i++<<endl;
     if(angle > center_threshold){
       // keep updating the minimum Distant point
