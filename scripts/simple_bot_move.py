@@ -39,26 +39,25 @@ def callback(data):
     try:
         tf.reset()
         if not move[0] and not move[1] and not move[2]:
-            tf.move_to_cell(4)
-        else if not move[0] and not move[1] and move[2]:
-            tf.move_to_cell(3)
-        else if not move[0] and move[1] and not move[2]:
-            tf.move_to_cell(1)
-        else if not move[0] and move[1] and move[2]:
-            tf.move_to_cell(3)
-        else if move[0] and not move[1] and not move[2]:
-            tf.move_to_cell(1)
-        else if move[0] and not move[1] and move[2]:
-            tf.move_to_cell(1)
-        else if move[0] and move[1] and not move[2]:
-            tf.move_to_cell(1)
-        else if move[0] and move[1] and move[2]:
-            tf.move_to_cell(2)
-    except KeyboardInterrupt:
-        gpio.cleanup()
+            index = 4
+        elif not move[0] and not move[1] and move[2]:
+            index = 3
+        elif not move[0] and move[1] and not move[2]:
+            index = 1
+        elif not move[0] and move[1] and move[2]:
+            index = 3
+        elif move[0] and not move[1] and not move[2]:
+            index = 1
+        elif move[0] and not move[1] and move[2]:
+            index = 1
+        elif move[0] and move[1] and not move[2]:
+            index = 1
+        elif move[0] and move[1] and move[2]:
+            index = 2
+        tf.move_to_cell(index)
+        print(index)
     finally:
-        gpio.cleanup()
-
+        tf.reset()
 
 '''
 *
@@ -83,4 +82,11 @@ def listener():
 
 # runs the listener function if the file is run as a script
 if __name__ == '__main__':
-    listener()
+    try:
+        listener()
+    except KeyboardInterrupt:
+        tf.reset()
+        tf.gpio.cleanup()
+    finally:
+        tf.reset()
+        tf.gpio.cleanup()

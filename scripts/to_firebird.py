@@ -16,7 +16,7 @@ gpio.setup(pin3, gpio.OUT)
 gpio.setup(pin4, gpio.OUT)
 
 def move_to_cell(index):
-    wait_time = 4
+    wait_time = 1
     if (index == 1):
         gpio.output(pin1, 1)
     elif (index == 2):
