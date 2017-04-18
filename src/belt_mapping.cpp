@@ -62,16 +62,21 @@ void get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg){
   float center_threshold = 0.26;
 
   double distances[3] = {std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity()};
+  double y_angles[3] = {std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity()};
   // int i = 0;
   // Angles are calculated in radians and can convert to degree by multpying it with 180/pi 
   //to iterate trough all the points in the filtered point cloud published by publisher
   BOOST_FOREACH (const pcl::PointXYZRGB& pt, msg->points){
+  	if(atan2(pt.z, pt.y) < 1.5) {
+  		continue;
+  	}
     double angle = atan2(pt.x, pt.z);
     // std::cout<<i++<<endl;
     if(angle > center_threshold){
       // keep updating the minimum Distant point
       if (hypot(pt.z, pt.x) < distances[0]) {
         distances[0] = hypot(pt.z, pt.x);
+        y_angles[0] = atan2(pt.z, pt.y);
       }
     }
     // Angles are not accurately measured. SO, subtract 0.25 m from each distance.
@@ -79,6 +84,7 @@ void get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg){
       // keep updating the minimum angle
       if (hypot(pt.z, pt.x) < distances[1]) {
         distances[1] = hypot(pt.z, pt.x);
+        y_angles[1] = atan2(pt.z, pt.y);
       }
     }
     
@@ -86,6 +92,7 @@ void get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg){
       // keep updating the maximum angle
       if (hypot(pt.z, pt.x) < distances[2]) {
         distances[2] = hypot(pt.z, pt.x);
+        y_angles[2] = atan2(pt.z, pt.y);
       }
     }
   }
@@ -95,6 +102,9 @@ void get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg){
   arr.data.push_back(distances[0]);
   arr.data.push_back(distances[1]);
   arr.data.push_back(distances[2]);
+  // arr.data.push_back(y_angles[0]);
+  // arr.data.push_back(y_angles[1]);
+  // arr.data.push_back(y_angles[2]);
   
   arr_pub.publish(arr);
 }
