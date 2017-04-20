@@ -202,5 +202,8 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(belt_mapping src/belt_mapping.cpp)
-target_link_libraries(belt_mapping ${catkin_LIBRARIES})
+add_executable(path_finding src/path_finding.cpp)
+target_link_libraries(path_finding ${catkin_LIBRARIES})
+
+add_executable(cluster_distances src/cluster_distances.cpp)
+target_link_libraries(cluster_distances ${catkin_LIBRARIES})

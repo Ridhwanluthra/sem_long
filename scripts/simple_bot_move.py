@@ -9,7 +9,7 @@
 * global variables: curr_frame, data_per_frame, check
 *
 '''
-import to_firebird as tf
+# import to_firebird as tf
 import rospy
 from std_msgs.msg import Float64MultiArray, MultiArrayLayout, MultiArrayDimension
 import requests
@@ -37,7 +37,7 @@ def callback(data):
         else:
             move[i] = True
     try:
-        tf.reset()
+        # tf.reset()
         if not move[0] and not move[1] and not move[2]:
             index = 4
         elif not move[0] and not move[1] and move[2]:
@@ -54,10 +54,11 @@ def callback(data):
             index = 1
         elif move[0] and move[1] and move[2]:
             index = 2
-        tf.move_to_cell(index)
+        # tf.move_to_cell(index)
         print(index)
     finally:
-        tf.reset()
+        pass
+        # tf.reset()
 
 '''
 *
@@ -82,11 +83,12 @@ def listener():
 
 # runs the listener function if the file is run as a script
 if __name__ == '__main__':
-    try:
-        listener()
-    except KeyboardInterrupt:
-        tf.reset()
-        tf.gpio.cleanup()
-    finally:
-        tf.reset()
-        tf.gpio.cleanup()
+    listener()
+    # try:
+    #     listener()
+    # except KeyboardInterrupt:
+    #     tf.reset()
+    #     tf.gpio.cleanup()
+    # finally:
+    #     tf.reset()
+    #     tf.gpio.cleanup()
