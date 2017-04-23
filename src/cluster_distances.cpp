@@ -56,8 +56,6 @@ double get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg, int 
   double rad_to_deg = 57.2958;
   rad_to_deg = 1;
 
-  const double pi = boost::math::constants::pi<double>();
-
   double minDistance[4] = {std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 0.0};
 // angles of rightmost point in the cluster
   double min_angle_radx[4] = {std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), 0.0};
