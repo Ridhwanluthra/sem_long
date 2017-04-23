@@ -2,14 +2,14 @@
 
 '''
 *
-* project name:     visual perception for visually impaired 
+* project name:     visual perception for visually impaired
 * author list:      Pankaj Baranwal, Ridhwan Luthra, Shreyas Sachan, Shashwat Yashaswi
 * filename:         listener.py
 * functions:        callback, listener
 * global variables: curr_frame, data_per_frame, check
 *
 '''
-# import to_firebird as tf
+import to_firebird as tf
 import rospy
 from std_msgs.msg import Float64MultiArray, MultiArrayLayout, MultiArrayDimension
 import requests
@@ -20,15 +20,14 @@ move = [False, False, False]
 *
 * Function Name:    callback
 * Input:        data -> data about the point cloud
-* Output:       
-* Logic:        
+* Output:
+* Logic:
 * Example Call:  callback function, manual calling not required.
 *
 '''
 def callback(data):
     global move
     dat = list(data.data)
-    
     for i in range(3):
         if dat[i] > 100:
             dat[i] = 0
@@ -37,7 +36,7 @@ def callback(data):
         else:
             move[i] = True
     try:
-        # tf.reset()
+        tf.reset()
         if not move[0] and not move[1] and not move[2]:
             index = 4
         elif not move[0] and not move[1] and move[2]:
@@ -54,11 +53,10 @@ def callback(data):
             index = 1
         elif move[0] and move[1] and move[2]:
             index = 2
-        # tf.move_to_cell(index)
+        tf.move_to_cell(index)
         print(index)
     finally:
-        pass
-        # tf.reset()
+        tf.reset()
 
 '''
 *
@@ -77,18 +75,17 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('simple_bot_move', anonymous=True)
-    rospy.Subscriber("simple_distances", Float64MultiArray, callback)
+    rospy.Subscriber("cluster_distances", Float64MultiArray, callback)
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
 # runs the listener function if the file is run as a script
 if __name__ == '__main__':
-    listener()
-    # try:
-    #     listener()
-    # except KeyboardInterrupt:
-    #     tf.reset()
-    #     tf.gpio.cleanup()
-    # finally:
-    #     tf.reset()
-    #     tf.gpio.cleanup()
+     try:
+         listener()
+     except KeyboardInterrupt:
+         tf.reset()
+         tf.gpio.cleanup()
+     finally:
+         tf.reset()
+         tf.gpio.cleanup()
