@@ -47,66 +47,10 @@ void setup(){
 }
 
 void loop(){
-/*  int one = digitalRead(r_pi_pin1);
+  int one = digitalRead(r_pi_pin1);
   int two = digitalRead(r_pi_pin2);
   int three = digitalRead(r_pi_pin3);
-  */
   
-  // ONE
-  int one = HIGH;
-  int two = LOW;
-  int three = LOW;
-  if (one == LOW && two == LOW && three == LOW){
-    stop_all();
-  } else if (one == HIGH && two == LOW && three == LOW){
-    move_to_cell(1);
-  } else if (one == LOW && two == HIGH && three == LOW){
-    move_to_cell(2);
-  } else if (one == HIGH && two == HIGH && three == LOW){
-    move_to_cell(3);
-  } else if (one == LOW && two == LOW && three == HIGH){
-    move_to_cell(4);
-  } else if (one == HIGH && two == LOW && three == HIGH){
-    move_to_cell(6);
-  }
-  // TWO
-  one = LOW;
-  two = HIGH;
-  three = LOW;
-  if (one == LOW && two == LOW && three == LOW){
-    stop_all();
-  } else if (one == HIGH && two == LOW && three == LOW){
-    move_to_cell(1);
-  } else if (one == LOW && two == HIGH && three == LOW){
-    move_to_cell(2);
-  } else if (one == HIGH && two == HIGH && three == LOW){
-    move_to_cell(3);
-  } else if (one == LOW && two == LOW && three == HIGH){
-    move_to_cell(4);
-  } else if (one == HIGH && two == LOW && three == HIGH){
-    move_to_cell(6);
-  }
-  // three
-  one = HIGH;
-  two = HIGH;
-  three = LOW;
-  if (one == LOW && two == LOW && three == LOW){
-    stop_all();
-  } else if (one == HIGH && two == LOW && three == LOW){
-    move_to_cell(1);
-  } else if (one == LOW && two == HIGH && three == LOW){
-    move_to_cell(2);
-  } else if (one == HIGH && two == HIGH && three == LOW){
-    move_to_cell(3);
-  } else if (one == LOW && two == LOW && three == HIGH){
-    move_to_cell(4);
-  } else if (one == HIGH && two == LOW && three == HIGH){
-    move_to_cell(6);
-  }  
-  // FOUR
-  one = LOW;
-  two = LOW;
-  three = HIGH;
   if (one == LOW && two == LOW && three == LOW){
     stop_all();
   } else if (one == HIGH && two == LOW && three == LOW){
