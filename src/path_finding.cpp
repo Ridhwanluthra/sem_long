@@ -241,19 +241,19 @@ main (int argc, char** argv)
   ros::init (argc, argv, "cluster_dist");
   ros::NodeHandle nh;
   
-  // ros::NodeHandle private_node_handle_("~");
+  ros::NodeHandle private_node_handle_("~");
   /*
 	Example:
 	rosrun obstacle_mapping cluster_distances _clusterTolerance:=0.03 _minClusterSize:=150 _maxClusterSize:=250 _distanceThreshold:=0.02
   */
+  private_node_handle_.param("minClusterSize", minClusterSize, int(5));
+  private_node_handle_.param("leaf_size", leaf_size, double(5));
+  private_node_handle_.param("maxClusterSize", maxClusterSize, int(5));
+  // private_node_handle_.param("maxIterations", maxIterations, int(5));
+  private_node_handle_.param("distanceThreshold", distanceThreshold, double(5));
+  private_node_handle_.param("clusterTolerance", clusterTolerance, double(5));
   // private_node_handle_.param("minClusterSize", minClusterSize, int(5));
-  // private_node_handle_.param("leaf_size", leaf_size, double(5));
-  // private_node_handle_.param("maxClusterSize", maxClusterSize, int(5));
-  // // private_node_handle_.param("maxIterations", maxIterations, int(5));
-  // private_node_handle_.param("distanceThreshold", distanceThreshold, double(5));
-  // private_node_handle_.param("clusterTolerance", clusterTolerance, double(5));
-  // // private_node_handle_.param("minClusterSize", minClusterSize, int(5));
-  // cout << clusterTolerance << endl;
+  cout << clusterTolerance << endl;
 
 
   // Create a ROS subscriber for the input point cloud

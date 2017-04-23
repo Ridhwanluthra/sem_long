@@ -162,9 +162,9 @@ double get_distance(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr& msg, int 
 void 
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 {
-	// Leaf size == Distance between 2 pts in the point cloud.
-	// maxClusterSize == Max number of points that are allowed to cluster together.
-	// minClusterSize == Min number of points that should be there to form a cluster
+  // Leaf size == Distance between 2 pts in the point cloud.
+  // maxClusterSize == Max number of points that are allowed to cluster together.
+  // minClusterSize == Min number of points that should be there to form a cluster
 
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_f (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -240,6 +240,7 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
   pcl::PCLPointCloud2 temp;
   *cloud_clust_remove = *cloud_filtered;
   pcl::PointCloud<pcl::PointXYZRGB> cloud_xyzrgb;
+  double range;
   std::cout<<"-------NEW FRAME------"<<std::endl<<std::endl;
   for (int it = 0; it < cluster_indices.size(); ++it)
   {
@@ -251,7 +252,11 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
     // to extract just the cluster
     ext.setNegative (false);
     ext.filter (*cloud_f);
+    range = get_distance(cloud_f, j);
     // to ignore far away clusters for brevity.
+    if (range >= maxDistance){
+      continue;
+    }
     cloud_xyzrgb = *cloud_f;
 
     // iteratively colors the cluster red, green or blue.
@@ -281,19 +286,19 @@ main (int argc, char** argv)
   ros::init (argc, argv, "cluster_dist");
   ros::NodeHandle nh;
   
-  // ros::NodeHandle private_node_handle_("~");
+  ros::NodeHandle private_node_handle_("~");
   /*
-	Example:
-	rosrun obstacle_mapping cluster_distances _clusterTolerance:=0.03 _minClusterSize:=150 _maxClusterSize:=250 _distanceThreshold:=0.02
+  Example:
+  rosrun obstacle_mapping cluster_distances _clusterTolerance:=0.03 _minClusterSize:=150 _maxClusterSize:=250 _distanceThreshold:=0.02
   */
+  private_node_handle_.param("minClusterSize", minClusterSize, int(5));
+  private_node_handle_.param("leaf_size", leaf_size, double(5));
+  private_node_handle_.param("maxClusterSize", maxClusterSize, int(5));
+  // private_node_handle_.param("maxIterations", maxIterations, int(5));
+  private_node_handle_.param("distanceThreshold", distanceThreshold, double(5));
+  private_node_handle_.param("clusterTolerance", clusterTolerance, double(5));
   // private_node_handle_.param("minClusterSize", minClusterSize, int(5));
-  // private_node_handle_.param("leaf_size", leaf_size, double(5));
-  // private_node_handle_.param("maxClusterSize", maxClusterSize, int(5));
-  // // private_node_handle_.param("maxIterations", maxIterations, int(5));
-  // private_node_handle_.param("distanceThreshold", distanceThreshold, double(5));
-  // private_node_handle_.param("clusterTolerance", clusterTolerance, double(5));
-  // // private_node_handle_.param("minClusterSize", minClusterSize, int(5));
-  // cout << clusterTolerance << endl;
+  cout << clusterTolerance << endl;
 
 
   // Create a ROS subscriber for the input point cloud
