@@ -265,7 +265,7 @@ main (int argc, char** argv)
   voxel_pub = nh.advertise<sensor_msgs::PointCloud2> ("voxeled", 1);
 
   // publishing  details
-  arr_pub = nh.advertise<std_msgs::Float64MultiArray> ("cluster_distances", 10);
+  arr_pub = nh.advertise<std_msgs::Float64MultiArray> ("cluster_distances", 1);
   // pub = 
 
   // Spin

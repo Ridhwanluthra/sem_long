@@ -5,7 +5,7 @@ from time import sleep
 pin1 = 7 # This is GPIO6, hence, 5th pin in inner row from ports 41
 pin2 = 8 # 8th pin in outer row from ports 42
 pin3 = 9 # 9th pin in outer row from ports 39
-pin4 = 10 # 10th pin in inner row from ports 40
+pin4 = 11 # 10th pin in inner row from ports 40
 
 # Setting up basic GPIO settings
 gpio.setmode(gpio.BCM)

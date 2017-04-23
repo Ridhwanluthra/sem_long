@@ -28,6 +28,7 @@ move = [False, False, False]
 def callback(data):
     global move
     dat = list(data.data)
+    print(dat)
     for i in range(3):
         if dat[i] > 100:
             dat[i] = 0
@@ -42,7 +43,7 @@ def callback(data):
         elif not move[0] and not move[1] and move[2]:
             index = 3
         elif not move[0] and move[1] and not move[2]:
-            index = 1
+            index = 2
         elif not move[0] and move[1] and move[2]:
             index = 3
         elif move[0] and not move[1] and not move[2]:
@@ -53,8 +54,9 @@ def callback(data):
             index = 1
         elif move[0] and move[1] and move[2]:
             index = 2
-        tf.move_to_cell(index)
+        print(move)
         print(index)
+        tf.move_to_cell(index)
     finally:
         tf.reset()
 
