@@ -34,5 +34,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.print(left_encoder);
+  Serial.print("\t");
   Serial.println(right_encoder);
 }
