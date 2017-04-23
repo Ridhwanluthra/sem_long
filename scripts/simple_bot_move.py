@@ -9,7 +9,13 @@
 * global variables: curr_frame, data_per_frame, check
 *
 '''
-import to_firebird as tf
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--laptop")
+args = parser.parse_args()
+print(args.laptop)
+if not args.laptop:
+	import to_firebird as tf
 import rospy
 from std_msgs.msg import Float64MultiArray, MultiArrayLayout, MultiArrayDimension
 import requests
@@ -37,7 +43,8 @@ def callback(data):
         else:
             move[i] = True
     try:
-        tf.reset()
+    	if not args.laptop:
+        	tf.reset()
         if not move[0] and not move[1] and not move[2]:
             index = 4
         elif not move[0] and not move[1] and move[2]:
@@ -54,11 +61,12 @@ def callback(data):
             index = 1
         elif move[0] and move[1] and move[2]:
             index = 2
-        print(move)
         print(index)
-        tf.move_to_cell(index)
+        if not args.laptop:
+        	tf.move_to_cell(index)
     finally:
-        tf.reset()
+    	if not args.laptop:
+        	tf.reset()
 
 '''
 *
@@ -77,17 +85,20 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('simple_bot_move', anonymous=True)
-    rospy.Subscriber("cluster_distances", Float64MultiArray, callback)
+    rospy.Subscriber("cluster_distances", Float64MultiArray, callback, queue_size=1)
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
 # runs the listener function if the file is run as a script
 if __name__ == '__main__':
-     try:
-         listener()
-     except KeyboardInterrupt:
-         tf.reset()
-         tf.gpio.cleanup()
-     finally:
-         tf.reset()
-         tf.gpio.cleanup()
+	if not args.laptop:
+		try:
+			listener()
+		except KeyboardInterrupt:
+			tf.reset()
+			tf.gpio.cleanup()
+		finally:
+			tf.reset()
+			tf.gpio.cleanup()
+	else:
+		listener()
