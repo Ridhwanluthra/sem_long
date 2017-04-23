@@ -67,15 +67,15 @@ void loop(){
 }
 
 void move_to_cell(int x){
-  int forty_five = 1500;
+  int forty_five = 30;
   if (x == 1){
     left(forty_five);
-    forward(1500);
+    forward(70);
   }else if (x == 2){
-    forward(1000);
+    forward(60);
   }else if (x == 3){
     right(forty_five);
-    forward(1500);
+    forward(70);
   }else if (x == 4){
     left(forty_five*2);
   }else if (x == 6){
@@ -90,8 +90,8 @@ void forward(int encoder_count){
     digitalWrite(pin_left2, HIGH);
     digitalWrite(pin_right1, LOW);
     digitalWrite(pin_right2, HIGH);
-    stop_all();
   }
+  stop_all();
 }
 
 void left(int encoder_count){
@@ -101,8 +101,8 @@ void left(int encoder_count){
     digitalWrite(pin_left2, HIGH);
     digitalWrite(pin_right1, HIGH);
     digitalWrite(pin_right2, LOW);
-    stop_all();
   }
+  stop_all();
 }
 
 void right(int encoder_count){
@@ -112,8 +112,8 @@ void right(int encoder_count){
     digitalWrite(pin_left2, LOW);
     digitalWrite(pin_right1, LOW);
     digitalWrite(pin_right2, HIGH);
-    stop_all();
   }
+  stop_all();
 }
 
 void stop_all(){
