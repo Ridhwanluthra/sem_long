@@ -19,7 +19,7 @@ sudo ./install.sh
 
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws
-
+source /opt/ros/kinetic/setup.bash
 catkin_make
 
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
