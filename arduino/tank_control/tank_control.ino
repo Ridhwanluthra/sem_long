@@ -20,6 +20,11 @@ ISR(INT5_vect) {
   right_encoder++;
 }
 
+/*
+  Orange and white coming from motors are pwm. They transform into brown and black respectively.
+  Brown coming from encoders is read pin, black is GND and red is 5V
+  
+*/
 int pin_left1 = 4, pin_left2 = 5, pwm_left3 = 6;
 int pin_right1 = 8, pin_right2 = 7, pwm_right3 = 9;
 int r_pi_pin1 = 10, r_pi_pin2 = 11, r_pi_pin3 = 12;
